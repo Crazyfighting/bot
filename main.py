@@ -1,5 +1,7 @@
 import discord
 import keep_alive
+import os
+from os import system
 from discord import channel
 from discord import message
 from discord import Color
@@ -190,16 +192,13 @@ async def draw(ctx, *, msg):
 async def on_member_join(member):
     channel = bot.get_channel(736610658807971911)
     await channel.send(f'歡迎新的gay<@{member.id}>')
-
+    
 @bot.event
 async def on_reaction_add(reaction, user):
   if 'noway' in reaction.emoji.name.lower():
     await reaction.clear()
 
-@bot.event
-async def on_message(message):
-    if bot.user.mentioned_in(message):
-        await message.channel.send('咩事啊？')
+
 
 
 @bot.event
@@ -210,68 +209,85 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_message(msg):
-    if msg.author != bot.user and not '-' in msg.content:
-        keyword = ['vt', 'VT', 'vt豚', 'VT豚', 'vt豬', 'VT豬']
-        if msg.content in keyword:
-            random_pic = random.choice(jdata['PIC_Vtuber'])
-            await msg.channel.send(random_pic)
-        if msg.content == '注意看':
-            await msg.channel.send('這個男人太狠了')
-        if msg.content == '狂戰':
+  if msg.author != bot.user and not '-' in msg.content:
+    keyword = ['vt', 'VT', 'vt豚', 'VT豚', 'vt豬', 'VT豬']
+    if msg.content in keyword:
+      random_pic = random.choice(jdata['PIC_Vtuber'])
+      await msg.channel.send(random_pic)
+    if msg.content == '注意看':
+      await msg.channel.send('這個男人太狠了')
+    if msg.content == '狂戰':
 
-            embed = discord.Embed(
-                title="狂戰",
-                url="https://www.youtube.com/channel/UCuilM7lWxp5INa3AL1Te1dQ",
-                description="從沒紅過的白工youtuber",
-                color=0xec3e13)
-            embed.set_thumbnail(
-                url=
-                "http://n.sinaimg.cn/sinacn20190822ac/217/w1455h1962/20190822/776f-icqznfz7612082.jpg"
-            )
-            embed.add_field(name="音game頻道",
-                            value="#maimai #osu! #sdvx",
-                            inline=False)
-            await msg.channel.send(embed=embed)
+      embed = discord.Embed(
+          title="狂戰",
+          url="https://www.youtube.com/channel/UCuilM7lWxp5INa3AL1Te1dQ",
+          description="從沒紅過的白工youtuber",
+          color=0xec3e13)
+      embed.set_thumbnail(
+          url=
+          "http://n.sinaimg.cn/sinacn20190822ac/217/w1455h1962/20190822/776f-icqznfz7612082.jpg"
+      )
+      embed.add_field(name="音game頻道",
+                      value="#maimai #osu! #sdvx",
+                      inline=False)
+      await msg.channel.send(embed=embed)
 
-        if msg.reference is not None:
-            reply = await msg.channel.fetch_message(msg.reference.message_id)
-            if reply.author == bot.user:
-                await msg.channel.send('電話忙線中，請稍後')
+    if msg.reference is not None:
+      reply = await msg.channel.fetch_message(msg.reference.message_id)
+      if reply.author == bot.user:
+        await msg.channel.send('電話忙線中，請稍後')
 
-        if msg.content == 'ㄐㄐ':
-            await msg.channel.send(f'<@{msg.author.id}>你好噁喔')
-        if msg.content == '無量空處' or msg.content == '領域展開' or msg.content=='🤞':
-            await msg.channel.send(jdata['VOID'])
-        if msg.content == ':fingers_crossed:':
-            await msg.channel.send(jdata['VOID'])
-        if msg.content == '噁':
-            await msg.channel.send(f'<@{msg.author.id}>你才噁')
-        if msg.content == 'lisa' or msg.content == 'Lisa' or msg.content == 'LISA':
-            await msg.channel.send('泰勞')
-        if msg.content == 'LiSA':
-            await msg.channel.send('鬼滅女人')
-        if msg.content == '為什麼' or msg.content == '為甚麼':
-            await msg.channel.send('宸仔管理員請問可以請教為什麼嗎')
-        if '非洲' in msg.content:
-            await msg.channel.send(
-                'https://cdn.discordapp.com/attachments/727117094860095498/894163416850239549/image0.gif'
-            )
-        if '寒心' in msg.content or '心寒' in msg.content:
-            await msg.channel.send(
-                'https://media.discordapp.net/attachments/915820672134045736/981420609231781938/unknown.png'
-            )
-        if '喂有聲音嗎' == msg.content:
-            await msg.channel.send('沒有')
-        if '虐'==msg.content:
-            await msg.channel.send('600')
-        if '選課機器' in msg.content or '搶課' in msg.content:
-            await msg.channel.send('https://media.discordapp.net/attachments/1026335727509839882/1056479671644078210/image.png')
-        if '暈' == msg.content or '暈船' == msg.content:
-            await msg.channel.send('https://imgur.com/osvlxTh')
-        if 'noway' in msg.content.lower():
-          await msg.delete()
-    await bot.process_commands(msg)
+    if msg.content == 'ㄐㄐ':
+      await msg.channel.send(f'<@{msg.author.id}>你好噁喔')
+    if msg.content == '無量空處' or msg.content == '領域展開' or msg.content == '🤞':
+      await msg.channel.send(jdata['VOID'])
+    if msg.content == ':fingers_crossed:':
+      await msg.channel.send(jdata['VOID'])
+    if msg.content == '噁':
+      await msg.channel.send(f'<@{msg.author.id}>你才噁')
+    if msg.content == 'lisa' or msg.content == 'Lisa' or msg.content == 'LISA':
+      await msg.channel.send('泰勞')
+    if msg.content == 'LiSA':
+      await msg.channel.send('鬼滅女人')
+    if msg.content == '為什麼' or msg.content == '為甚麼':
+      await msg.channel.send('宸仔管理員請問可以請教為什麼嗎')
+    if '非洲' in msg.content:
+      await msg.channel.send(
+          'https://cdn.discordapp.com/attachments/727117094860095498/894163416850239549/image0.gif'
+      )
+    if '寒心' in msg.content or '心寒' in msg.content:
+      await msg.channel.send(
+          'https://media.discordapp.net/attachments/915820672134045736/981420609231781938/unknown.png'
+      )
+    if '喂有聲音嗎' == msg.content:
+      await msg.channel.send('沒有')
+    if '虐' == msg.content:
+      await msg.channel.send('600')
+    if '選課機器' in msg.content or '搶課' in msg.content:
+      await msg.channel.send(
+          'https://media.discordapp.net/attachments/1026335727509839882/1056479671644078210/image.png'
+      )
+    if '暈' == msg.content or '暈船' == msg.content:
+      await msg.channel.send('https://imgur.com/osvlxTh')
+    if 'noway' in msg.content.lower():
+      await msg.delete()
+    if bot.user.mentioned_in(msg):
+      await msg.channel.send('咩事啊？')
+    elif len(msg.stickers) != 0:
+      s_name = msg.stickers[0].name
+      s_name = ''.join(regex.split(r'[_\-,?]', s_name))
+      print(s_name)
+      if 'noway' in s_name:
+        await msg.delete()
+  await bot.process_commands(msg)
 
 
 keep_alive.keep_alive()
-bot.run(jdata['TOKEN'])
+
+
+try:
+	bot.run(jdata['TOKEN'])
+except discord.errors.HTTPException:
+    print("\n\n\nBLOCKED BY RATE LIMITS\nRESTARTING NOW\n\n\n")
+    system("python restarter.py")
+    system('kill 1')
